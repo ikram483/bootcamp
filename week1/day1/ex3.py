@@ -1,4 +1,4 @@
-mon_nom = "Alice"  # Remplacez "Alice" par votre propre nom
+mon_nom = "ikram"  
 nom_utilisateur = input("Quel est ton nom ? ")
 if nom_utilisateur.lower() == mon_nom.lower():
     print("Wow ! Nous avons le même nom ! C'est incroyable ! ")
