@@ -1,3 +1,8 @@
+#Convert the two following lists, into dictionaries.
+#Hint: Use the zip method
+#keys = ['Ten', 'Twenty', 'Thirty']
+#values = [10, 20, 30]
+
 # Given lists
 keys = ['Ten', 'Twenty', 'Thirty']
 values = [10, 20, 30]
