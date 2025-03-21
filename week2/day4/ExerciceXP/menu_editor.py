@@ -61,9 +61,11 @@ def remove_item_from_menu():
     Remove an item from the menu.
     """
     item_name = input("Enter the name of the item to remove: ").strip()
-    item = MenuItem.get_by_name(item_name)
+    item_data = MenuManager.get_by_name(item_name)
+ 
+    if item_data:
+        item = MenuItem(item_data['item_name'], item_data['item_price'])
 
-    if item:
         item.delete()
         print(f" '{item_name}' was removed successfully.")
     else:
@@ -74,12 +76,16 @@ def update_item_from_menu():
     Update an item's name and/or price.
     """
     old_name = input("Enter the current item name: ").strip()
-    item = MenuItem.get_by_name(old_name)
+    item_data = MenuManager.get_by_name(old_name)
 
-    if item:
+    if item_data:
+        item = MenuItem(item_data['item_name'], item_data['item_price'])
+
         new_name = input("Enter new item name (or press Enter to keep the same name): ").strip()
         try:
-            new_price = float(input("Enter new item price: "))
+            new_price_input = input("Enter new item price (or press Enter to keep the same price): ").strip()
+            new_price = float(new_price_input) if new_price_input else item_data['item_price']
+
             item.update(new_name or old_name, new_price)
             print(f" '{old_name}' was updated successfully.")
         except ValueError:
