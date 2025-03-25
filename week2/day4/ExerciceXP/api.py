@@ -24,6 +24,19 @@ def get_all_items():
     conn.close()
     return jsonify(items)
 
+@app.route('/menu/<string:item_name>', methods=['GET'])
+def get_by_name(item_name): 
+        connection = get_connection()
+        cursor = connection.cursor()
+        query = "SELECT * FROM Menu_Items WHERE item_name = %s;"
+        cursor.execute(query, (item_name,))
+        result = cursor.fetchone()
+        cursor.close()
+        connection.close()
+        if result:
+            return jsonify({"item_id": result[0], "item_name": result[1], "item_price": result[2]})
+        return None
+
 
 @app.route('/menu', methods=['POST'])
 def add_item():
@@ -50,7 +63,7 @@ def delete_item(name):
     return jsonify({'message': f'{name} deleted successfully!'})
 
 
-@app.route('/menu/pasta', methods=['PUT'])
+@app.route('/menu/<string:old_name>', methods=['PUT'])
 def update_item(old_name):
     data = request.get_json()
     new_name = data.get('name')
