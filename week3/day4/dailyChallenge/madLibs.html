@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mad Libs Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    h1 {
+      text-align: center;
+      color: #444;
+    }
+
+    form {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #3f51b5;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #303f9f;
+    }
+
+    #story {
+      margin-top: 30px;
+      font-size: 18px;
+      color: #333;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Mad Libs Game</h1>
+
+  <form id="libform">
+    <label for="noun">Noun:</label>
+    <input type="text" id="noun">
+
+    <label for="adjective">Adjective:</label>
+    <input type="text" id="adjective">
+
+    <label for="person">Someone's Name:</label>
+    <input type="text" id="person">
+
+    <label for="verb">Verb:</label>
+    <input type="text" id="verb">
+
+    <label for="place">A place:</label>
+    <input type="text" id="place">
+
+    <button id="lib-button">Generate Story</button>
+    <button type="button" id="shuffle-button">Shuffle</button>
+  </form>
+
+  <p id="story"></p>
+
+  <script src="madLibs.js"></script>
+</body>
+</html>
