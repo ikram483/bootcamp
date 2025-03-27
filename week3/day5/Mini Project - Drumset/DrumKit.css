@@ -1,0 +1,49 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: #1a1a1a;
+    display: flex;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .drums {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    max-width: 800px;
+    justify-content: center;
+  }
+  
+  .drum-key {
+    width: 100px;
+    height: 100px;
+    background: #333;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.07s;
+  }
+  
+  .drum-key kbd {
+    font-size: 2rem;
+    margin-bottom: 5px;
+  }
+  
+  .drum-key .sound {
+    font-size: 0.8rem;
+    color: #ffc600;
+    text-transform: uppercase;
+  }
+  
+  .playing {
+    transform: scale(1.1);
+    border-color: #ffc600;
+    box-shadow: 0 0 10px #ffc600;
+  }

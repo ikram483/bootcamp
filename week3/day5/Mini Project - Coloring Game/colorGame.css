@@ -1,0 +1,60 @@
+body {
+    text-align: center;
+    font-family: sans-serif;
+    background: #f4f4f4;
+  }
+  
+  #color-palette {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    gap: 10px;
+  }
+  
+  .color {
+    width: 40px;
+    height: 40px;
+    border: 2px solid #333;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .color.selected {
+    outline: 3px solid black;
+  }
+  
+  #grid {
+    display: grid;
+    grid-template-columns: repeat(20, 25px);
+    grid-template-rows: repeat(20, 25px);
+    gap: 1px;
+    margin: 0 auto;
+    width: fit-content;
+  }
+  
+  .square {
+    width: 25px;
+    height: 25px;
+    background-color: white;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+  }
+  
+  button{
+    margin-top: 20px;
+    margin-bottom: 20px;
+      padding: 10px 20px;
+      background-color: #3f51b5;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+
+  }
+  
+    button:hover {
+      background-color: #303f9f;
+    }
