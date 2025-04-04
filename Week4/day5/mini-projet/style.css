@@ -1,0 +1,76 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #7a3fd1;
+    background-image: url(circuit-pattern.png); 
+    background-size: cover;
+    background-repeat: repeat;
+    /* color: #7a3fd1; */
+  }
+  
+  header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #7be495;
+    padding: 20px;
+    gap: 20px;
+  }
+  
+  h1 {
+    font-family: 'SEGA LOGO FONT';
+    font-size: 1,5rem;
+    color: #03045e;
+    margin: 0;
+  }
+  
+  #search {
+    padding: 10px;
+    width: 300px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    background-color: #dbc9f6;
+  }
+  
+  #robots-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 30px;
+    gap: 20px;
+  }
+  
+  .card {
+    background: #00b4d8;
+    background-image: url(card-pattern.png);
+    border-radius: 10px;
+    text-align: center;
+    padding: 20px;
+    width: 250px;
+    transition: 0.3s ease-in-out;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+    background: #0077b6;
+  }
+  
+  .card img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    margin-bottom: 15px;
+  }
+  
+  .card h2 {
+    font-size: 20px;
+    margin-bottom: 5px;
+  }
+  
+  .card p {
+    font-size: 14px;
+    margin: 0;
+  }
+  
