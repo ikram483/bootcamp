@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Emoji Guessing Game</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; padding: 2rem; }
+    .options button { margin: 0.5rem; padding: 1rem; }
+    .emoji { font-size: 4rem; margin-bottom: 1rem; }
+  </style>
+</head>
+<body>
+    <h1>Emoji Guessing Game 🎯</h1>
+    <p>Bienvenue, <span id="playerPseudo"></span> !</p>
+
+  
+    <div id="login">
+      <p>Enter your nickname:</p>
+      <input type="text" id="playerName" />
+      <button onclick="startGame()">Start</button>
+    </div>
+  
+    <div id="game" style="display:none">
+      <div class="emoji" id="emoji">❓</div>
+      <div class="options" id="options"></div>
+      <p id="feedback"></p>
+      <p>Time Left: <span id="timer">10</span>s</p>
+      <p>Score: <span id="score">0</span></p>
+    </div>
+  
+    <script>
+        let correctAnswer = ''
+        let playerName = ''
+        let score = 0
+        let timerInterval
+        let timeLeft = 10
+        
+        function startGame() {
+          playerName = document.getElementById('playerName').value.trim()
+        
+          if (!playerName) {
+            alert('Please enter a nickname!')
+            return
+          }
+        
+          // Réinitialiser
+          score = 0
+          updateScoreDisplay()
+          document.getElementById('feedback').textContent = ''
+          document.getElementById('playerPseudo').textContent = playerName
+        
+          // Afficher la zone de jeu
+          document.getElementById('login').style.display = 'none'
+          document.getElementById('game').style.display = 'block'
+        
+          loadQuestion()
+        }
+        
+        function updateScoreDisplay() {
+          document.getElementById('score').textContent = score
+        }
+        
+        function startTimer() {
+          clearInterval(timerInterval) // on reset le précédent
+        
+          timeLeft = 10
+          document.getElementById('timer').textContent = timeLeft
+        
+          timerInterval = setInterval(() => {
+            timeLeft--
+            document.getElementById('timer').textContent = timeLeft
+        
+            if (timeLeft <= 0) {
+              clearInterval(timerInterval)
+              submitGuess(null) // temps écoulé = mauvaise réponse
+            }
+          }, 1000)
+        }
+        
+        async function loadQuestion() {
+          const res = await fetch('/api/question')
+          const data = await res.json()
+        
+          document.getElementById('emoji').textContent = data.emoji
+          correctAnswer = data.correctAnswer
+          const optionsDiv = document.getElementById('options')
+          optionsDiv.innerHTML = ''
+          document.getElementById('feedback').textContent = ''
+        
+          data.options.forEach(option => {
+            const btn = document.createElement('button')
+            btn.textContent = option
+            btn.onclick = () => {
+              clearInterval(timerInterval)
+              submitGuess(option)
+            }
+            optionsDiv.appendChild(btn)
+          })
+        
+          startTimer()
+        }
+        
+        async function submitGuess(guess) {
+          const res = await fetch('/api/guess', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ guess, correctAnswer, playerName })
+          })
+        
+          const data = await res.json()
+        
+          document.getElementById('feedback').textContent = data.isCorrect ? '✅ Correct!' : '❌ Wrong!'
+          score = data.score
+          updateScoreDisplay()
+        
+          setTimeout(() => {
+            document.getElementById('feedback').textContent = ''
+            loadQuestion()
+          }, 1500)
+        }
+        
+    </script>
+  </body>
+  
+</html>
