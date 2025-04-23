@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        .message {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <h1>Register :</h1>
+    <form id="registerForm">
+        <div class="form-group">
+            <label for="firstName">First name</label>
+            <input type="text" id="firstName" name="firstName" required>
+        </div>
+        <div class="form-group">
+            <label for="lastName">Last name</label>
+            <input type="text" id="lastName" name="lastName" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="username">username</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+            <label for="password">password</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit" id="registerBtn" disabled>Register</button>
+    </form>
+    <div id="message" class="message" style="display: none;"></div>
+
+    <p><a href="/login.html">Already have an account? Login here</a></p>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('registerForm');
+            const registerBtn = document.getElementById('registerBtn');
+            const messageDiv = document.getElementById('message');
+            const inputs = form.querySelectorAll('input');
+
+            // Check if all inputs have values to enable/disable the button
+            function validateForm() {
+                let valid = true;
+                inputs.forEach(input => {
+                    if (!input.value.trim()) {
+                        valid = false;
+                    }
+                });
+                registerBtn.disabled = !valid;
+            }
+
+            // Add event listeners to all inputs
+            inputs.forEach(input => {
+                input.addEventListener('input', validateForm);
+            });
+
+            // Handle form submission
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const formData = {
+                    firstName: document.getElementById('firstName').value,
+                    lastName: document.getElementById('lastName').value,
+                    email: document.getElementById('email').value,
+                    username: document.getElementById('username').value,
+                    password: document.getElementById('password').value
+                };
+
+                try {
+                    const response = await fetch('/register', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(formData)
+                    });
+
+                    const data = await response.json();
+                    
+                    messageDiv.textContent = data.message;
+                    messageDiv.style.display = 'block';
+                    
+                    if (response.ok) {
+                        messageDiv.className = 'message success';
+                        form.reset();
+                        registerBtn.disabled = true;
+                    } else {
+                        messageDiv.className = 'message error';
+                    }
+                } catch (error) {
+                    messageDiv.textContent = 'An error occurred. Please try again.';
+                    messageDiv.className = 'message error';
+                    messageDiv.style.display = 'block';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
